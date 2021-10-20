@@ -1,5 +1,3 @@
-// ProfileUserController
-
 import { Request, Response } from 'express';
 
 import { ProfileUserService } from '../services/ProfileUserService';
