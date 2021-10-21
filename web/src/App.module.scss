@@ -8,3 +8,13 @@
   column-gap: 120px;
   position: relative;
 }
+
+.contentSinged::before {
+  content: '';
+  height: 100vh;
+  width: 300px;
+  background: url('../assets/background.svg') no-repeat;
+  background-size: cover;
+  position: absolute;
+  right: -80px;
+}
