@@ -1,12 +1,23 @@
 import React, { useEffect, useState } from 'react';
+import { io } from 'socket.io-client';
 
 import {
   ScrollView
 } from 'react-native';
 import { api } from '../../services/api';
 import { Message, MessageProps } from '../Message';
+import { MESSAGES_EXAMPLE } from '../../utils/messages';
 
 import { styles } from './styles';
+
+let messageQueue: MessageProps[] = MESSAGES_EXAMPLE;
+
+const socket = io(String(api.defaults.baseURL));
+
+socket.on('new_message', (newMessage) => {
+  messageQueue.push(newMessage);
+  console.log(newMessage);
+});
 
 export function MessageList() {
   const [currentMessages, setCurrentMessages] = useState<MessageProps[]>([]);
@@ -19,6 +30,17 @@ export function MessageList() {
     }
 
     fetchMessages();
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (messageQueue.length > 0) {
+        setCurrentMessages(prevState => [messageQueue[0], prevState[0], prevState[1]]);
+        messageQueue.shift();
+      }
+    });
+
+    return () => clearInterval(timer);
   }, []);
 
   return (
