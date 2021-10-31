@@ -7,6 +7,8 @@ defmodule BackendElixirWeb.Router do
 
   scope "/api", BackendElixirWeb do
     pipe_through :api
+
+    post "/message", MessagesController, :create
   end
 
   # Enables LiveDashboard only for development
