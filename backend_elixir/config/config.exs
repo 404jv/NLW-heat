@@ -18,6 +18,11 @@ config :backend_elixir, BackendElixirWeb.Endpoint,
   pubsub_server: BackendElixir.PubSub,
   live_view: [signing_salt: "UYiUWVPb"]
 
+config :backend_elixir, BackendElixir.Scheduler,
+  jobs: [
+    {"0 0 * * *", {BackendElixir.Tags.Count, :call, []}}
+  ]
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
