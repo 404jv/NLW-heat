@@ -14,9 +14,10 @@ defmodule BackendElixir.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: BackendElixir.PubSub},
       # Start the Endpoint (http/https)
-      BackendElixirWeb.Endpoint
+      BackendElixirWeb.Endpoint,
       # Start a worker by calling: BackendElixir.Worker.start_link(arg)
       # {BackendElixir.Worker, arg}
+      BackendElixir.Scheduler
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
